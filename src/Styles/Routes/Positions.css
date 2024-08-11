@@ -1,0 +1,118 @@
+.Table-Positions .ant-table-row .ant-table-cell{
+    padding: 3px;
+
+}
+
+.Table-Positions{
+    font-size: 10px !important;
+}
+
+.Table-Positions .ant-table-thead .ant-table-cell{
+    padding: 5px;
+    background-color: #0266E2;
+    color: #FFFFFF;
+}
+
+.Table-Positions.Table-EM .ant-table-thead .ant-table-cell{
+    padding: 5px;
+    background-color: #592321;
+    color: #FFFFFF;
+}
+
+.Table-Positions .ant-table-thead th:first-child::before{
+    display: none;
+}
+
+.Table-Positions .Cell-Position{
+    display: flex;
+    align-items: center;
+    /* padding: 1px; */
+    justify-content: center;
+    border-radius: 20%;
+    font-size: 12px;
+    width: 20px;
+}
+
+.Table-Positions .Container-Last-Games{
+    display: flex;
+    gap: 2px;
+    justify-content: center;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 11px;
+}
+
+.Table-Positions .Container-Last-Games div{
+    width: 16px;
+    height: 16px;
+    border-radius: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.Container-Last-Games .Game-Lost{
+    background-color: #e20e02;
+}
+
+.Container-Last-Games .Game-Draw{
+    background-color: gray;
+}
+
+.Container-Last-Games .Icon-See-More{
+    /* border: 1px solid black; */
+    border-radius: 15% !important;
+    width: 14px;
+    display: flex;
+    justify-content: center;
+    background-color: #338dfd;
+}
+
+.Container-Last-Games .Game-Won{
+    background-color: green;
+}
+
+.Table-Positions .Direct-Classification{
+    background-color: #0266E2;
+    color: #FFFFFF;
+}
+
+.Table-Positions .Playoff-Classification{
+    background-color: #02e27e;
+    color: #FFFFFF;
+}
+
+.Container-Info-Table-EM{
+    margin: 10px;
+}
+
+.Container-Info-Table-EM div div{
+    width: 12px;
+    height: 12px;
+    border-radius: 20%;
+}
+.Container-Info-Table-EM div{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.Icon-Direct-Classification{
+    background: #0266E2;
+}
+
+.Icon-Playoff-Classification{
+    background: #02e27e;
+}
+/* .Table-Positions .ant-table-tbody  > tr:nth-child(-n+6) > td:first-child{
+    background-color: red !important;
+} */
+
+/* .Table-Positions .ant-table-tbody  > tr:nth-child(7) > td:first-child{
+    background-color: blue !important;
+}
+
+
+.Table-Positions .ant-table-tbody tr{
+    margin: 5px !important;
+} */

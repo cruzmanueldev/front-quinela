@@ -1,0 +1,57 @@
+.Statistics-Container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 20px 10px;
+}
+
+.Name-Card-Selection{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: black;
+}
+
+.Statistics-Title-Selection{
+    font-size: 20px;
+}
+
+.Card-Selection{
+    cursor: pointer;
+    border-radius: 15px;
+    background-color: #5923211e;
+    transition: 0.2s;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+}
+
+.Card-Selection.EM{
+    border: 2px solid #592321;    
+}
+
+.Card-Selection.CA{
+    border: 2px solid #0266E2;
+}
+
+.Card-Selection:hover img{
+    /* opacity: 0.3; */
+}
+
+.Card-Selection:hover .Name-Card-Selection{
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    align-items: center;
+    height: 100%;
+    color: black;
+}
+
+.Card-Selection img{
+    transition: 0.5s;
+    display: block;
+}

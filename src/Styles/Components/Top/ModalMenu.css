@@ -1,0 +1,52 @@
+.Button-Icon-Menu{
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+    border-radius: 10px !important;
+}
+
+.Button-Icon-Menu.CA{
+    border: 2px #0266E2 solid;
+}
+
+.Button-Icon-Menu.EM{
+    border: 2px #592321 solid;
+}
+
+.Modal-Menu .ant-modal-content{
+    border-radius: 20px !important;
+}
+
+.Icon-Menu{
+
+    font-size :25px;
+}
+
+.Icon-Menu.EM{
+    color :#592321;
+}
+
+.Icon-Menu.CA{
+    color :#0266E2;
+}
+
+
+.Button-Icon-Menu:hover{
+    border: 2px solid #FFFFFF !important;
+    transition: 0.5s;
+}
+
+.Button-Icon-Menu.CA:hover{
+    background-color: #0266E2 !important;
+}
+
+.Button-Icon-Menu.EM:hover{
+    background-color: #592321 !important;
+}
+
+.Button-Icon-Menu:hover .Icon-Menu{
+    color: #FFFFFF;
+    transform: scale(1.1);
+}

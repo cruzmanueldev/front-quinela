@@ -1,0 +1,36 @@
+.Container-Navbar{
+    color: #FFFFFF;
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 10px;
+    align-items: center;
+
+}
+
+.Container-Navbar.CA{
+    background-color: #0266E2;
+}
+
+.Container-Navbar.EM{
+    background-color: #592321;
+}
+
+.Button-Setting{
+    border-radius: 10px;
+}
+.Icon-Setting{
+    font-size: 16px;
+    transition: transform 0.5s;
+}
+
+.Icon-Setting.CA{
+    color: #0266E2;
+}
+
+.Icon-Setting.EM{
+    color :#592321;
+}
+
+.Button-Setting:hover .Icon-Setting{
+    transform: scale(1.1);
+}

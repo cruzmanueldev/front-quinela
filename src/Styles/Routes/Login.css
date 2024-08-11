@@ -1,0 +1,62 @@
+
+.Container-Login{
+    display: flex !important;
+    justify-content: center !important;
+    flex-direction: column !important;
+    align-items: center;
+    align-content: center;
+    background-color: #592321;
+    height: 100vh;
+}
+
+.Container-Redirect-Login{
+    margin-top: 5px;
+    display: flex;
+    justify-content: center;
+}
+
+.Container-Redirect-Login{
+    color: white;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.Container-Input{
+    width: 280px;
+}
+
+.Container-Input > *{
+    margin-top: 10px;
+}
+.Container-Login .ant-select{
+    width: 280px;
+}
+.ant-select-selection-item{
+    /* color: #592321; */
+}
+.Container-Login .ant-select .ant-select-selection-placeholder{
+    opacity: 0.8 !important;
+    color: #000000;
+}
+
+.Container-Login .ant-btn{
+    /* background-color: #592321; */
+}
+.Container-Items{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.Text-Main{
+    display: flex;
+    justify-content: center;
+    color: #FFFFFF !important;
+    font-weight: 700 !important;
+}
+
+.Card-Login{
+    background-color: rgba(255, 255, 255, 0.046);
+    padding: 15px 30px;
+    border-radius: 15px;
+}

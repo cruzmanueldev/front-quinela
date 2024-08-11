@@ -1,0 +1,17 @@
+.Card-Next-Matches .ant-card-body{
+    padding: 24px 0 !important;
+}
+
+.Container-Info-Done{
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    background-color: blue;
+}
+
+.Container-Info-Waiting{
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    background-color: red;
+}

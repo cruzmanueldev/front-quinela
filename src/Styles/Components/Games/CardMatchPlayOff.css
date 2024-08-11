@@ -1,0 +1,24 @@
+.ContainerTeamMatchPlayOff{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0px 1px 10px -3px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 0px 1px 10px -3px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 1px 10px -3px rgba(0,0,0,0.75);
+}
+
+.ContainerTeamMatchPlayOffRight{
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0px 1px 10px -3px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 0px 1px 10px -3px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 1px 10px -3px rgba(0,0,0,0.75);
+}
+
+.TeamWinSelected{
+    background-color: #91caff;
+}
