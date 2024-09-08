@@ -228,7 +228,6 @@ const PredictMatches = () => {
 			return arrayMove(prev, activeIndex, overIndex);
 		  });
 		}
-		console.log(over)
 	};
 
 	const onDragEndB = ({ active, over }) => {
@@ -239,7 +238,6 @@ const PredictMatches = () => {
 			return arrayMove(prev, activeIndex, overIndex);
 		  });
 		}
-		console.log(over)
 	};
 
 	const onDragEndC = ({ active, over }) => {
@@ -250,7 +248,6 @@ const PredictMatches = () => {
 			return arrayMove(prev, activeIndex, overIndex);
 		  });
 		}
-		console.log(over)
 	};
 
 	const onDragEndD = ({ active, over }) => {
@@ -261,8 +258,6 @@ const PredictMatches = () => {
 			return arrayMove(prev, activeIndex, overIndex);
 		  });
 		}
-		console.log(over)
-		console.log(active)
 	};
 
 	return (

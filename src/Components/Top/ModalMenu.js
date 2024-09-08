@@ -16,6 +16,8 @@ import {
 } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { AuthLogoutReducer, ShowModalMenuReducer, ValidateUserReducer } from '../../Redux/Actions/Top/Top';
+import { GetDataNextMatchesReducer } from '../../Redux/Actions/Home/Home';
+import { GetDataPositionsUsersReducer } from '../../Redux/Actions/Users/Users';
 
 const ModalMenu = () => {
 
@@ -101,19 +103,23 @@ const ModalMenu = () => {
                             
                     </Button>
                     </a> */}
-                    {/* <Button onClick={()=> {
+                    <Button onClick={()=> {
+                        // let tornid = parseInt(localStorage.getItem('tornid')) == 2 ? 1 : 2
                         let tornid = rex_data_user.tornid == 2 ? 1 : 2
+
                         closeModal()
                         dispatch(ValidateUserReducer(tornid))
                         dispatch(GetDataNextMatchesReducer(true))
-                    }} className={`Button-Icon-Menu ${rex_data_user.tornombre}`}>                        
+                        dispatch(GetDataPositionsUsersReducer(tornid))
+                    }} className={`Button-Icon-Menu ${rex_data_user.tornombre === 'CA' ? 'EM' : 'CA'}`}>                        
                         <img 
+                            alt='img'
                             height={50} 
                             width={50} 
-                            src={rex_data_user.tornid == 1 
+                            src={parseInt(localStorage.getItem('tornid')) === 1 
                                 ? 'https://res.cloudinary.com/josecruz9/image/upload/v1712456180/2026_FIFA_World_Cup_29_nngpit.png'
                                 :'https://res.cloudinary.com/josecruz9/image/upload/v1712373465/zrkbejv5skotj8ciafpo.png'}/>
-                    </Button> */}
+                    </Button>
                     <Button onClick={()=> {
                         navigate('/login')
                         dispatch(AuthLogoutReducer())

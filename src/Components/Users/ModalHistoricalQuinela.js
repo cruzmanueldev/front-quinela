@@ -20,22 +20,40 @@ const ModalHistoricalQuinela = ({
             footer={null}
         >
             <Row>
-                <Col span={8} style={{display:'flex', justifyContent:'center', fontWeight:'bold'}}><div>Partido</div></Col>
-                <Col span={8} style={{display:'flex', justifyContent:'center', fontWeight:'bold'}}><div>Resultado</div></Col>
-                <Col span={8} style={{display:'flex', justifyContent:'center', fontWeight:'bold'}}><div>Predicción</div></Col>
+                <Col span={6} style={{display:'flex', justifyContent:'center', fontWeight:'bold'}}><div></div></Col>
+                <Col span={6} style={{display:'flex', justifyContent:'center', fontWeight:'bold'}}><div>Partido</div></Col>
+                <Col span={6} style={{display:'flex', justifyContent:'center', fontWeight:'bold'}}><div>Resultado</div></Col>
+                <Col span={6} style={{display:'flex', justifyContent:'center', fontWeight:'bold'}}><div>Predicción</div></Col>
             </Row>
             {
                 rex_data_historical_quinela_users.length > 0
                 ? rex_data_historical_quinela_users.map(dat => (
                     <Row className='ContainerMatchHistorical'>
-                        <Col span={8}>
+                        <Col span={6}
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                flexDirection:'column',
+                                justifyContent:'center'
+                            }}
+                        >
+                            <div style={{display:'flex', justifyContent:'center', gap:'3px', fontWeight:'700'}}>
+                                {dat.pruparpartidos.parfecid.fecnombre}
+                            </div>
+                        </Col>
+                        <Col span={6}>
                             <div style={{display:'flex', justifyContent:'center', gap:'3px'}}>
                                 <img 
                                     height='30'
                                     width='auto'
                                     src={dat.pruparpartidos.parlocalsel.selimagen}
                                 />
-                                <div>vs</div>
+                                <div
+                                    style={{
+                                        display:'flex',
+                                        alignItems:'center'
+                                    }}
+                                >vs</div>
                                 <img 
                                     height='30'
                                     width='auto'                                
@@ -43,7 +61,7 @@ const ModalHistoricalQuinela = ({
                                 />
                             </div>
                         </Col>
-                        <Col span={8} style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
+                        <Col span={6} style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
                             <div style={{display:'flex', justifyContent:'center', gap:'3px', alignItems:'center', backgroundColor:'#0266E2', borderRadius:'5px', padding:'1px 4px', color:'#FFFFFF'}}>
                                 <div>{dat.pruparpartidos.pargoleslocal}</div>
                                 <div>{'-'}</div>
@@ -51,7 +69,7 @@ const ModalHistoricalQuinela = ({
                             </div>
                         </Col>
 
-                        <Col span={8} style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
+                        <Col span={6} style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
                             <div style={{display:'flex', justifyContent:`center`, gap:`3px`, alignItems:`center`, backgroundColor:`${dat.parganador == dat.pruganador ? '#237804' : '#ff4d4f'}`, borderRadius:`5px`, padding:`1px 4px`, color:`#FFFFFF`}}>
                                 <div style={{alignItems:'center', textAlign:'center'}}>{dat.prugoleslocal}</div>
                                 <div>{'-'}</div>

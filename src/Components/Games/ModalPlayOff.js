@@ -40,7 +40,6 @@ const ModalPlayOff = ({
 	const { Title } = Typography
 
 	const closeModal = () => {
-		console.log("cerrado")
 		setOpenModalPlayOff(false)
 	}
 

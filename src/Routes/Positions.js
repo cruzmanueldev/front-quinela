@@ -2,7 +2,8 @@ import { Col, Row, Table, Segmented, Popover } from 'antd'
 import React, { useEffect } from 'react'
 import './../Styles/Routes/Positions.css'
 import {
-    PlusOutlined
+    PlusOutlined,
+    CaretDownOutlined
 } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetPositionsTournamentReducer } from '../Redux/Actions/Tournaments/Tournaments';
@@ -74,13 +75,6 @@ const Positions = () => {
             key: 'pg',
             align: 'center',
             width:'40px'
-        },  
-        {
-            title: 'P',
-            dataIndex: 'pe',
-            key: 'pe',
-            align: 'center',
-            width:'40px'
         },
         {
             title: 'E',
@@ -88,7 +82,14 @@ const Positions = () => {
             key: 'pe',
             align: 'center',
             width:'40px'
-        },  
+        },
+        {
+            title: 'P',
+            dataIndex: 'pp',
+            key: 'pp',
+            align: 'center',
+            width:'40px'
+        },
         {
             title: 'DG',
             dataIndex: 'dg',
@@ -202,7 +203,16 @@ const Positions = () => {
                 rex_data_positions_tournament.length > 0
                 ? <Col span={24} md={12}>
                     {
-                        rex_data_positions_tournament.map(dat => (
+                        localStorage.getItem('tornombre') == 'EM' 
+                        ? <Table
+                            className={`Table-Positions Table-EM`}
+                            columns={columns}
+                            dataSource={rex_data_positions_tournament}
+                            pagination={{
+                                position:['none','none']
+                            }}            
+                        />
+                        : rex_data_positions_tournament.map(dat => (
                             <div>
                                 <div style={{display:'flex', justifyContent:'center', margin:'15px 0', fontWeight:'600'}}>{dat.grunombre}</div>
                                 <Table
@@ -215,10 +225,13 @@ const Positions = () => {
                                 />
                             </div>
                         ))
+
                     }
+
                     {
                         rex_data_user.tornombre == 'EM'
                         ? <div className='Container-Info-Table-EM'>
+                            <div><CaretDownOutlined style={{color:'red'}}/>-3ptos Ecuador(Sanción)</div>
                             <div><div className='Icon-Direct-Classification'></div>Clasificado al mundial</div>
                             <div><div className='Icon-Playoff-Classification'></div>Repechaje</div>
                         </div>

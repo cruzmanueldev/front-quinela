@@ -4,7 +4,14 @@ import {
     GET_DATA_POSITIONS_USERS,
 } from "./../../../Constants/Users/Users"
 
-export const GetDataPositionsUsersReducer = () => async (dispatch, getState) =>{
+export const GetDataPositionsUsersReducer = (tornid) => async (dispatch, getState) =>{
+
+    let req_tornid
+    if(!tornid){
+        req_tornid = parseInt(localStorage.getItem('tornid'))
+    }else{
+        req_tornid = tornid
+    }
 
     await fetch(config.apiUrl + "users/ranking",
         {
@@ -14,6 +21,9 @@ export const GetDataPositionsUsersReducer = () => async (dispatch, getState) =>{
                 "Accept": "application/json",
                 "Content-type":"application/json",
             },
+            body : JSON.stringify({
+                req_tornid : req_tornid
+            })
         },
     )
     .then( res => res.json())
@@ -41,7 +51,8 @@ export const GetDataQuinelaUserReducer = (usuid) => async (dispatch, getState) =
                 "Content-type":"application/json",
             },
             body : JSON.stringify({
-                req_usuid : usuid
+                req_usuid : usuid,
+                req_tornid : parseInt(localStorage.getItem('tornid'))
             })
         },
     )

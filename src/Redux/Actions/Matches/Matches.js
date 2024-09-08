@@ -40,7 +40,6 @@ export const GetDataLastMatchesReducer = (selid) => async (dispatch, getState) =
 
 export const EditCloseMatchReducer = (goal, match, value) => async (dispatch, getState) =>{
     const { rex_data_next_matches } = getState().home;
-    console.log(match)
     rex_data_next_matches.map(dat => {
         if(match.partid == dat.partid){
             dat[goal] = parseInt(value)
@@ -187,7 +186,8 @@ export const CloseMatchReducer = (partid) => async (dispatch, getState) =>{
                 req_selhome     : matchUpdate.parlocalsel.selid,
                 req_selaway     : matchUpdate.parvisitasel.selid,
                 req_pargoalhome : matchUpdate.req_pargoalhome,
-                req_pargoalaway : matchUpdate.req_pargoalaway
+                req_pargoalaway : matchUpdate.req_pargoalaway,
+                req_tornid : parseInt(localStorage.getItem('tornid'))
             })
         },
     )
