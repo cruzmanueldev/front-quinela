@@ -16,7 +16,7 @@ import {
 } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { AuthLogoutReducer, ShowModalMenuReducer, ValidateUserReducer } from '../../Redux/Actions/Top/Top';
-import { GetDataNextMatchesReducer } from '../../Redux/Actions/Home/Home';
+import { GetDataNextMatchesReducer, GetDataStatisticsQuinelaReducer } from '../../Redux/Actions/Home/Home';
 import { GetDataPositionsUsersReducer } from '../../Redux/Actions/Users/Users';
 
 const ModalMenu = () => {
@@ -110,6 +110,7 @@ const ModalMenu = () => {
                         closeModal()
                         dispatch(ValidateUserReducer(tornid))
                         dispatch(GetDataNextMatchesReducer(true))
+                        dispatch(GetDataStatisticsQuinelaReducer(tornid))
                         dispatch(GetDataPositionsUsersReducer(tornid))
                     }} className={`Button-Icon-Menu ${rex_data_user.tornombre === 'CA' ? 'EM' : 'CA'}`}>                        
                         <img 

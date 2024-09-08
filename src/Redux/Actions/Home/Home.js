@@ -94,13 +94,20 @@ export const GetDataNextMatchesReducer = (changeTor = false) => async (dispatch,
     })
 }
 
-export const GetDataStatisticsQuinelaReducer = ( ) => async (dispatch, getState) => {
+export const GetDataStatisticsQuinelaReducer = (tornid) => async (dispatch, getState) => {
 
     let response = false
 
     const { rex_data_form_quinela } = getState().home;
 
     const dataEdited = rex_data_form_quinela.filter(dat => dat.edit == true)
+
+    let req_tornid
+    if(!tornid){
+        req_tornid = parseInt(localStorage.getItem('tornid'))
+    }else{
+        req_tornid = tornid
+    }
 
 
     await fetch(config.apiUrl + "quinela/statistics-quinela",
@@ -111,8 +118,10 @@ export const GetDataStatisticsQuinelaReducer = ( ) => async (dispatch, getState)
             "Accept": "application/json",
             "Content-type":"application/json",
             "usutoken" : localStorage.getItem('usutoken'),
-
         },
+        body : JSON.stringify({
+            req_tornid : req_tornid
+        })
     },
     )
     .then( res => res.json())

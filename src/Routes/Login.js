@@ -76,14 +76,14 @@ const Login = () => {
                     <img
                         width={230}
                         height={240}
-                        // src={tournament ? tournament : 'https://res.cloudinary.com/josecruz9/image/upload/v1712374907/tm3gidyzcpx3k2zlskev.png'}
-                        src='https://res.cloudinary.com/josecruz9/image/upload/v1712373465/zrkbejv5skotj8ciafpo.png'
+                        src={tournament ? tournament : 'https://res.cloudinary.com/josecruz9/image/upload/v1712374907/tm3gidyzcpx3k2zlskev.png'}
+                        // src='https://res.cloudinary.com/josecruz9/image/upload/v1712373465/zrkbejv5skotj8ciafpo.png'
                         alt='Icono torneo'
                     />
                 </div>
                 <div>
                 <Select
-                    value={'Copa America 2024'}
+                    // value={'Copa America 2024'}
                     placeholder='Seleccionar torneo'
                     options={rex_data_tournaments}
                     onChange={(text, index)=> onChangeSelect(index)}

@@ -43,7 +43,7 @@ const ModalQuinela = () => {
 			className='Modal-Form-Quinela'
 			closeIcon={false}
 		>
-			<div style={{ display:'flex', justifyContent:'center'}}>Formulario Quinela</div>
+			<div style={{ display:'flex', justifyContent:'center', fontWeight:'700'}}>Formulario Quinela</div>
 			{
 				rex_data_form_quinela.map((mat, index) => (
 					<Row key={index} gutter={[12,12]} style={{display:'flex', margin:'10px 0'}}>
