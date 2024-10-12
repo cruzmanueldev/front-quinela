@@ -206,7 +206,13 @@ const ModalNextMatchesTeam = ({ onChange, showModal, setShowModal, currentPoints
                                 {dat.parfecid.fecnombre}
                             </div>
                         </Col>
-                        <Col span={4}>
+                        <Col span={4}
+                            style={{
+                                display:'flex',
+                                alignItems:'center',
+                                justifyContent:'center'
+                            }}
+                        >
                             <div style={{display:'flex', justifyContent:'center', gap:'3px'}}>
                                 <img 
                                     height='30'
@@ -215,12 +221,24 @@ const ModalNextMatchesTeam = ({ onChange, showModal, setShowModal, currentPoints
                                 />
                             </div>
                         </Col>
-                        <Col span={2}>
+                        <Col span={2}
+                            style={{
+                                display:'flex',
+                                alignItems:'center',
+                                justifyContent:'center'
+                            }}                        
+                        >
                             <div style={{display:'flex', justifyContent:'center', gap:'3px'}}>
                                 vs
                             </div>
                         </Col>
-                        <Col span={4}>
+                        <Col span={4}
+                            style={{
+                                display:'flex',
+                                alignItems:'center',
+                                justifyContent:'center'
+                            }}                        
+                        >
                             <div style={{display:'flex', justifyContent:'center', gap:'3px'}}>
                                 <img 
                                     height='30'
@@ -231,7 +249,7 @@ const ModalNextMatchesTeam = ({ onChange, showModal, setShowModal, currentPoints
                         </Col>
                         <Col span={8} style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
                             <div style={{display:'flex', justifyContent:'center', gap:'3px'}}>
-                                {moment(dat.parfecid.parfecha).locale('es').format('Do MMMM YYYY')}
+                                {moment(dat.parfecid.parfecha).locale('es').format('MMMM YYYY')}
                             </div>
                         </Col>
                     </Row>
