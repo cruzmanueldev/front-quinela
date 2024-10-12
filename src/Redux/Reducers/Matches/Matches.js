@@ -3,7 +3,11 @@ import {
     SHOW_DATE_MATCHES_EM,
     SHOW_DATE_MATCHES_CA,
     GET_DATA_LAST_MATCHES,
-    DATA_PREDICTIONS_MATCHES
+    DATA_PREDICTIONS_MATCHES,
+    DATA_ALL_PREDICTIONS_MATCHES,
+    DATA_SELECTIONS_MATCHES,
+    CURRENT_DATE_MATCH,
+    GET_DATA_NEXT_MATCHES_TEAM
 } from "../../../Constants/Matches/Matches"
 
 const INIT_STATE = {
@@ -11,6 +15,10 @@ const INIT_STATE = {
     rex_date_matches_em     : "Jornada 1",
     rex_date_matches_ca     : "Jornada 1",
     rex_data_last_matches   : [],
+    rex_data_next_matches_team  : [],
+    rex_current_date_match  : null,
+    rex_data_selections_matches : [],
+    rex_data_all_predictions_matches : [],
     rex_data_predictions_matches : {
         nameWinA : null,
         imageWinA : null,
@@ -36,10 +44,31 @@ const INIT_STATE = {
 
 export default (state = INIT_STATE, action) => {
     switch(action.type){
+        case CURRENT_DATE_MATCH:
+            return {
+                ...state,
+                rex_current_date_match: action.payload
+        }
+        case GET_DATA_NEXT_MATCHES_TEAM:
+            return {
+                ...state,
+                rex_data_next_matches_team: action.payload
+        }
+
+        case DATA_SELECTIONS_MATCHES:
+            return {
+                ...state,
+                rex_data_selections_matches: action.payload
+        }
         case GET_DATA_LAST_MATCHES:
             return {
                 ...state,
                 rex_data_last_matches: action.payload
+        }
+        case DATA_ALL_PREDICTIONS_MATCHES:
+            return {
+                ...state,
+                rex_data_all_predictions_matches: action.payload
         }
         case DATA_PREDICTIONS_MATCHES:
             return {

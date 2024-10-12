@@ -40,8 +40,9 @@ const Statistics = () => {
 				rex_data_selections.length > 0
 				? <>
 					{
-						rex_data_selections.map((sel) => {
+						rex_data_selections.map((sel, index) => {
 							return <div 
+								key={index}
 								className={`Card-Selection ${rex_data_user.tornombre}`}
 								onClick={()=> showLastMathces(sel.selid)}
 								>

@@ -212,8 +212,8 @@ const Positions = () => {
                                 position:['none','none']
                             }}            
                         />
-                        : rex_data_positions_tournament.map(dat => (
-                            <div>
+                        : rex_data_positions_tournament.map((dat, index) => (
+                            <div key={index}>
                                 <div style={{display:'flex', justifyContent:'center', margin:'15px 0', fontWeight:'600'}}>{dat.grunombre}</div>
                                 <Table
                                     className={`Table-Positions ${rex_data_user.tornombre == 'EM' ? 'Table-EM':''}`}

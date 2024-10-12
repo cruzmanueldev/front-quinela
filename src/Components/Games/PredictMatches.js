@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { DndContext, KeyboardSensor, PointerSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
@@ -10,12 +10,17 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { Table, Row, Col, FloatButton, Button } from 'antd';
+import { Table, Row, Col, FloatButton, Button, Input, Pagination  } from 'antd';
 import {
 	PartitionOutlined
 } from '@ant-design/icons';
 import ModalPlayOff from "./ModalPlayOff";
 import './../../Styles/Components/Games/PredictMatches.css'
+import { useDispatch, useSelector } from "react-redux";
+import { GetDataAllMatchesReducer, GetPositionsTournamentReducer } from "../../Redux/Actions/Tournaments/Tournaments";
+import { CalculateDataPredictionReducer, CleanDataJourneyPredictionReducer, GetDataNextMatchesTeamReducer, GetDataPredictionReducer, UpdateDataPredictionReducer } from "../../Redux/Actions/Matches/Matches";
+import { CURRENT_DATE_MATCH } from "../../Constants/Matches/Matches";
+import ModalNextMatchesTeam from "../Matches/ModalNextMatchesTeam";
 
 const columns = [
 	{
@@ -110,7 +115,26 @@ const RowSort = (props) => {
 
 const PredictMatches = () => {
 
+	const {
+        rex_data_user
+    } = useSelector(({top}) => top)
+
+	const {
+        rex_data_positions_prediction_tournament,
+    } = useSelector(({tournaments}) => tournaments)
+
+	const {
+        rex_data_all_predictions_matches,
+		rex_current_date_match,
+		rex_data_selections_matches
+    } = useSelector(({matches}) => matches)
+
+	const dispatch = useDispatch()
+
 	const [ openModalPlayOff, setOpenModalPlayOff ] = useState(false)
+	const [ showModalNextMacthes, setShowModalNextMatches ] = useState(false)
+	const [ pointsTeamSelected, setPointsTeamSelected ] = useState(null)
+	const [ selidTeamSelected, setSelidTeamSelected ] = useState(null)
 
 	const [dataSource, setDataSource] = useState([
 		{
@@ -260,124 +284,410 @@ const PredictMatches = () => {
 		}
 	};
 
+	const columnsTable = [
+        {
+            title: '',
+            dataIndex: 'pos',
+            key: 'pos',
+            align: 'center',
+            render : (_, record, index) => {
+                return <div style={{display:'flex', justifyContent:'center'}}>
+					<div className={`Cell-Position ${index + 1 <= 6 ? 'Direct-Classification': index + 1 == 7 ? 'Playoff-Classification' :''}`}>
+						{index+1}
+					</div>
+                </div>
+            },
+            fixed : 'left',
+            width:'30px'
+        },
+        {
+            title: '',
+            dataIndex: 'selnombre',
+            key: 'selnombre',
+            align: 'center',
+            render : (_, record, index) => {
+                return <div style={{display:'flex', alignItems:'center', gap:'5px'}}>
+                    <img
+                        width={25}
+                        height={25}
+                        src={record.selimagen}
+                    />
+                    <div>{record.selabreviacion}</div>
+                </div>
+            },
+            fixed : 'left',
+            width:'70px'
+        },
+        {
+            title: 'PJ',
+            dataIndex: 'pj',
+            key: 'pj',
+            align: 'center',
+            width:'40px'
+        },
+        {
+            title: 'G',
+            dataIndex: 'pg',
+            key: 'pg',
+            align: 'center',
+            width:'40px'
+        },
+        {
+            title: 'E',
+            dataIndex: 'pe',
+            key: 'pe',
+            align: 'center',
+            width:'40px'
+        },
+        {
+            title: 'P',
+            dataIndex: 'pp',
+            key: 'pp',
+            align: 'center',
+            width:'40px'
+        },
+        {
+            title: 'DG',
+            dataIndex: 'dg',
+            key: 'dg',
+            align: 'center',
+            width:'40px',
+			render : (_, record, index) => {
+
+				let dg = record.gf - record.gc
+
+                return <div style={{display:'flex', alignItems:'center', justifyContent:'center', gap:'5px'}}>
+                    <div style={{textAlign:'center'}}>{dg}</div>
+                </div>
+            },
+        },
+        {
+            title: 'Ptos',
+            dataIndex: 'ptos',
+            key: 'ptos',
+            align: 'center',
+            width:'40px'
+        },
+    ]
+
+
+	const getDataTable = () => {
+		if(rex_data_user.tornombre == 'EM'){
+			dispatch(GetDataAllMatchesReducer())
+			dispatch(GetDataPredictionReducer())
+		}
+		dispatch(GetPositionsTournamentReducer(true))
+	}
+
+	useEffect(()=> {
+		getDataTable()
+	},[rex_data_user])
+
 	return (
-		<Row style={{display:'flex', justifyContent:'center', padding:'5px', alignItems:'center'}}>
-			<Col span={24} style={{margin:'10px 0', padding:'0 15px'}}>
-				<div><PartitionOutlined /> Cambia la posicion de los equipos para generar los cruces de 4tos de final</div>
-			</Col>
-			<Col span={12} style={{padding:'5px'}}>
-				<DndContext sensors={sensors} modifiers={[restrictToVerticalAxis]} onDragEnd={onDragEnd}>
-				<SortableContext
-					// rowKey array
-					items={dataSource.map((i) => i.key)}
-					strategy={verticalListSortingStrategy}
+			rex_data_user.tornombre == "EM"
+			?	<Row
+					style={{
+						display:'flex',
+						justifyContent:'center',
+						padding: '30px 0'
+					}}
 				>
-					<Table
-						className="Table-Prediction-Matches"
-						components={{
-							body: {
-							row: RowSort,
-							},
-						}}
-						rowKey="key"
-						columns={columns}
+					<Col style={{margin:'0 30px'}}>
+						<Pagination 
+							pageSize={5}
+							align="center" 
+							current={rex_current_date_match}
+							onChange={(page, pageSize) => {
+								dispatch({
+									type : CURRENT_DATE_MATCH,
+									payload : page
+								})
+							}}
+							showSizeChanger={false}
+							total={rex_data_all_predictions_matches.length}
+						/>
+						<div style={{
+							margin:'10px 0'
+						}}>
+							{
+								rex_data_all_predictions_matches.filter(all => all.fecid === rex_current_date_match).map((mat, index) => (
+									<Row 
+										key={index}
+										gutter={12}
+										style={{
+											margin:'5px 0'
+										}}
+									>
+										<Col span={12}>
+											<Row>
+												<Col span={18}
+													style={{
+														display:'flex',
+														alignItems:'center',
+														justifyContent:'end',
+													}}
+												>
+													<div style={{display:'flex', justifyContent:'end', gap:'5px', alignItems:'center'}}>
+														<div>{mat.parlocalsel.selnombre}</div>
+														<div
+															style={{
+																display:'flex',
+																alignItems:'center'
+															}}
+														>
+															<img 
+																src={mat.parlocalsel.selimagen}
+																style={{
+																	height:'25px',
+																	width:'auto'
+																}}
+															/>
+														</div>
+													</div>
+												</Col>
+												<Col span={6}>
+													<div>
+														<Input 
+															onChange={(value) => {
+																dispatch(UpdateDataPredictionReducer(
+																	mat.partid, 
+																	value.target.value,
+																	mat.pargolesvisita
+																))
+															}}
+															disabled={!mat.paractivo}
+															value={mat.pargoleslocal}
+															style={{
+																textAlign:'center',
+																color:'#000000'
+															}}
+														/>
+													</div>
+												</Col>
+											</Row>
+										</Col>
+										<Col span={12}>
+											<Row>
+												<Col span={6}>
+													<div>
+														<Input
+															style={{
+																textAlign:'center',
+																color:'#000000'
+															}}
+															onChange={(value) => {
+																dispatch(UpdateDataPredictionReducer(
+																	mat.partid, 
+																	mat.pargoleslocal,
+																	value.target.value,
+																))
+															}}
+															disabled={!mat.paractivo}
+															value={mat.pargolesvisita}
+														/>
+													</div>
+												</Col>
+												<Col span={18}
+													style={{
+														display:'flex',
+														alignItems:'center',
+														justifyContent:'initial',
+													}}
+												>
+													<div style={{display:'flex', justifyContent:'end', gap:'5px', alignItems:'center'}}>
+														<div
+															style={{
+																display:'flex',
+																alignItems:'center'
+															}}
+														>
+															<img 
+																src={mat.parvisitasel.selimagen}
+																style={{
+																	height:'25px',
+																	width:'auto'
+																}}
+															/>
+														</div>
+														<div>{mat.parvisitasel.selnombre}</div>
+													</div>
+												</Col>
+											</Row>
+										</Col>
+									</Row>
+								))
+							}
+
+						</div>
+						<Col
+							style={{
+								display:'flex',
+								justifyContent:'center',
+								gap:'10px',
+								marginBottom:'10px'
+							}}
+						>
+							<Button 
+								onClick={()=> {
+									dispatch(CleanDataJourneyPredictionReducer(rex_current_date_match))
+								}}
+								size="small" 
+								type="primary" 
+								danger
+							>Limpiar</Button>
+							<Button 
+								size="small" 
+								type="primary"
+								onClick={() => {
+									dispatch(CalculateDataPredictionReducer())
+								}}
+							>Calcular</Button>
+						</Col>
+					</Col>
+					<Col>
+						<Table
+							className={`Table-Positions Table-EM`}
+							columns={columnsTable}
+							onRow={(record, rowIndex) => {
+								return {
+									onClick: () => {
+										setShowModalNextMatches(true)
+										setPointsTeamSelected(record.ptos)
+										dispatch(GetDataNextMatchesTeamReducer(record.selid))
+										setSelidTeamSelected(record.selid)
+									},
+								};
+							}}
+							dataSource={rex_data_selections_matches}
+							pagination={{
+								position:['none','none']
+							}}            
+						/>
+					</Col>
+					<ModalNextMatchesTeam
+						currentPoints={pointsTeamSelected}
+						showModal={showModalNextMacthes}
+						selidTeam={selidTeamSelected}
+						setShowModal={setShowModalNextMatches}
+					/>
+				</Row>
+			:	<Row style={{display:'flex', justifyContent:'center', padding:'5px', alignItems:'center'}}>
+					<Col span={24} style={{margin:'10px 0', padding:'0 15px'}}>
+						<div><PartitionOutlined /> Cambia la posicion de los equipos para generar los cruces de 4tos de final</div>
+					</Col>
+					<Col span={12} style={{padding:'5px'}}>
+						<DndContext sensors={sensors} modifiers={[restrictToVerticalAxis]} onDragEnd={onDragEnd}>
+						<SortableContext
+							// rowKey array
+							items={dataSource.map((i) => i.key)}
+							strategy={verticalListSortingStrategy}
+						>
+							<Table
+								className="Table-Prediction-Matches"
+								components={{
+									body: {
+									row: RowSort,
+									},
+								}}
+								rowKey="key"
+								columns={columns}
+								dataSource={dataSource}
+								pagination={{
+									position:['none','none']
+								}}
+							/>
+						</SortableContext>
+						</DndContext>
+					</Col>
+					<Col span={12} style={{padding:'5px'}}>
+						<DndContext sensors={sensors} modifiers={[restrictToVerticalAxis]} onDragEnd={onDragEndB}>
+						<SortableContext
+							// rowKey array
+							items={groupB.map((i) => i.key)}
+							strategy={verticalListSortingStrategy}
+						>
+							<Table
+								className="Table-Prediction-Matches"
+								components={{
+									body: {
+									row: RowSort,
+									},
+								}}
+								rowKey="key"
+								columns={columnsB}
+								dataSource={groupB}
+								pagination={{
+									position:['none','none']
+								}}
+							/>
+						</SortableContext>
+						</DndContext>
+					</Col>
+
+					<Col span={12} style={{padding:'5px'}}>
+						<DndContext sensors={sensors} modifiers={[restrictToVerticalAxis]} onDragEnd={onDragEndC}>
+						<SortableContext
+							// rowKey array
+							items={groupC.map((i) => i.key)}
+							strategy={verticalListSortingStrategy}
+						>
+							<Table
+								className="Table-Prediction-Matches"
+								components={{
+									body: {
+									row: RowSort,
+									},
+								}}
+								rowKey="key"
+								columns={columnsC}
+								dataSource={groupC}
+								pagination={{
+									position:['none','none']
+								}}
+							/>
+						</SortableContext>
+						</DndContext>
+					</Col>
+
+					<Col span={12} style={{padding:'5px'}}>
+						<DndContext sensors={sensors} modifiers={[restrictToVerticalAxis]} onDragEnd={onDragEndD}>
+						<SortableContext
+							// rowKey array
+							items={groupD.map((i) => i.key)}
+							strategy={verticalListSortingStrategy}
+						>
+							<Table
+								className="Table-Prediction-Matches"
+								components={{
+									body: {
+									row: RowSort,
+									},
+								}}
+								rowKey="key"
+								columns={columnsD}
+								dataSource={groupD}
+								pagination={{
+									position:['none','none']
+								}}
+							/>
+						</SortableContext>
+						</DndContext>
+					</Col>
+					<FloatButton
+						onClick={() => setOpenModalPlayOff(true)}
+						tooltip={<div>Ver cruces</div>} 
+						type="primary"
+						icon={<PartitionOutlined />}
+					/>
+					<ModalPlayOff
+						openModalPlayOff={openModalPlayOff}
+						setOpenModalPlayOff={setOpenModalPlayOff}
 						dataSource={dataSource}
-						pagination={{
-							position:['none','none']
-						}}
+						groupB={groupB}
+						groupC={groupC}
+						groupD={groupD}
 					/>
-				</SortableContext>
-				</DndContext>
-			</Col>
-			<Col span={12} style={{padding:'5px'}}>
-				<DndContext sensors={sensors} modifiers={[restrictToVerticalAxis]} onDragEnd={onDragEndB}>
-				<SortableContext
-					// rowKey array
-					items={groupB.map((i) => i.key)}
-					strategy={verticalListSortingStrategy}
-				>
-					<Table
-						className="Table-Prediction-Matches"
-						components={{
-							body: {
-							row: RowSort,
-							},
-						}}
-						rowKey="key"
-						columns={columnsB}
-						dataSource={groupB}
-						pagination={{
-							position:['none','none']
-						}}
-					/>
-				</SortableContext>
-				</DndContext>
-			</Col>
-
-			<Col span={12} style={{padding:'5px'}}>
-				<DndContext sensors={sensors} modifiers={[restrictToVerticalAxis]} onDragEnd={onDragEndC}>
-				<SortableContext
-					// rowKey array
-					items={groupC.map((i) => i.key)}
-					strategy={verticalListSortingStrategy}
-				>
-					<Table
-						className="Table-Prediction-Matches"
-						components={{
-							body: {
-							row: RowSort,
-							},
-						}}
-						rowKey="key"
-						columns={columnsC}
-						dataSource={groupC}
-						pagination={{
-							position:['none','none']
-						}}
-					/>
-				</SortableContext>
-				</DndContext>
-			</Col>
-
-			<Col span={12} style={{padding:'5px'}}>
-				<DndContext sensors={sensors} modifiers={[restrictToVerticalAxis]} onDragEnd={onDragEndD}>
-				<SortableContext
-					// rowKey array
-					items={groupD.map((i) => i.key)}
-					strategy={verticalListSortingStrategy}
-				>
-					<Table
-						className="Table-Prediction-Matches"
-						components={{
-							body: {
-							row: RowSort,
-							},
-						}}
-						rowKey="key"
-						columns={columnsD}
-						dataSource={groupD}
-						pagination={{
-							position:['none','none']
-						}}
-					/>
-				</SortableContext>
-				</DndContext>
-			</Col>
-			<FloatButton
-				onClick={() => setOpenModalPlayOff(true)}
-				tooltip={<div>Ver cruces</div>} 
-				type="primary"
-				icon={<PartitionOutlined />}
-			/>
-			<ModalPlayOff
-				openModalPlayOff={openModalPlayOff}
-				setOpenModalPlayOff={setOpenModalPlayOff}
-				dataSource={dataSource}
-				groupB={groupB}
-				groupC={groupC}
-				groupD={groupD}
-			/>
-		</Row>
+				</Row>		
 	);
 };
 
