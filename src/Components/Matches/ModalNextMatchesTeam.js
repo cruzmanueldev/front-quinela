@@ -249,7 +249,7 @@ const ModalNextMatchesTeam = ({ onChange, showModal, setShowModal, currentPoints
                         </Col>
                         <Col span={8} style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
                             <div style={{display:'flex', justifyContent:'center', gap:'3px'}}>
-                                {moment(dat.parfecid.parfecha).locale('es').format('MMMM YYYY')}
+                                {moment(dat.parfecha).locale('es').format('MMM YYYY')}
                             </div>
                         </Col>
                     </Row>
