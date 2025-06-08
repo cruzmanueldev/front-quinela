@@ -3,16 +3,18 @@ import { useEffect, useState } from "react";
 import {
     BarChartOutlined,
     FormOutlined,
-    LoadingOutlined
+    LoadingOutlined,
+    TeamOutlined
 } from '@ant-design/icons';
 
 import { useDispatch, useSelector } from "react-redux";
-import { GetDataNextMatchesReducer, GetDataStatisticsQuinelaReducer, ShowModalFormQuinelaReducer, ShowModalStatisticsQuinelaReducer } from "../Redux/Actions/Home/Home";
+import { GetDataNextMatchesReducer, GetDataStatisticsQuinelaReducer, ShowModalFormQuinelaReducer, ShowModalLastResultsReducer, ShowModalStatisticsQuinelaReducer } from "../Redux/Actions/Home/Home";
 import './../Styles/Routes/Home.css'
 import moment from "moment";
 import ModalQuinela from "../Components/Home/ModalQuinela";
 import ModalStatistics from "../Components/Home/ModalStatistics";
 import ImageLoading from '../Assets/images/loadingBall.gif'
+import ModalLastResult from "../Components/Home/ModalLastResults";
 
 function Home() {
 
@@ -100,6 +102,15 @@ function Home() {
                     </Col>
                     <Col xs={24} sm={24} md={6} >
                         <div style={{display:'flex', flexDirection:'column', gap:'10px'}}>
+                            <Affix offsetBottom={70}>
+                                <Button 
+                                    block 
+                                    style={{backgroundColor:'#FFA600', color:'#FFFFFF', border:'none'}}
+                                    onClick={()=> dispatch(ShowModalLastResultsReducer(true))}
+                                >
+                                    <TeamOutlined />Resultados jornada anterior
+                                </Button>
+                            </Affix>
                             <Affix offsetBottom={50}>
                                 <Button 
                                     block 
@@ -120,6 +131,7 @@ function Home() {
                     </Col>
                     <ModalQuinela/>
                     <ModalStatistics/>
+                    <ModalLastResult/>
                 </>
                 : <div style={{display:'flex', justifyContent:'center', alignItems:'center', flexDirection:'column'}}>
                         <img

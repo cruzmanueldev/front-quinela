@@ -2,9 +2,12 @@ import { notifyAlert, notifySuccess } from "../../../Functions/notifications";
 import config from "./../../../config"
 import { 
     DATA_FORM_QUINELA,
+    DATA_LAST_RESULTS,
     DATA_STATISTICS_FORM_QUINELA,
     GET_DATA_NEXT_MATCHES,
+    LOADING_DATA_RESULTS,
     SHOW_MODAL_FORM_QUINELA,
+    SHOW_MODAL_LAST_RESULTS,
     SHOW_MODAL_STATISTICS_QUINELA
 } from "./../../../Constants/Home/Home"
 
@@ -22,6 +25,14 @@ export const ShowModalFormQuinelaReducer = ( state ) => async (dispatch, getStat
     dispatch({
         type    : DATA_FORM_QUINELA,
         payload : dataQuinela
+    })
+}
+
+export const ShowModalLastResultsReducer = ( state ) => async (dispatch, getState) => {
+
+    dispatch({
+        type    : SHOW_MODAL_LAST_RESULTS,
+        payload : state
     })
 }
 
@@ -138,6 +149,49 @@ export const GetDataStatisticsQuinelaReducer = (tornid) => async (dispatch, getS
         console.log(error)
     })
 
+    return response
+}
+
+export const GetDataLastResultsQuinelaReducer = (fecid) => async (dispatch, getState) => {
+
+    let response = false
+
+    dispatch({
+        type : LOADING_DATA_RESULTS,
+        payload : true
+    })
+    await fetch(config.apiUrl + "quinela/last-results",
+    {
+        mode: "cors",
+        method : "POST",
+        headers : {
+            "Accept": "application/json",
+            "Content-type":"application/json",
+            "usutoken" : localStorage.getItem('usutoken'),
+        },
+        body : JSON.stringify({
+            fecid : fecid
+        })
+    },
+    )
+    .then( res => res.json())
+    .then(async data => {
+        if(data.response){
+            response = true
+            dispatch({
+                type : DATA_LAST_RESULTS,
+                payload : data.data
+            })
+        }
+    })
+    .catch((error) => {
+        console.log(error)
+    })
+
+    dispatch({
+        type : LOADING_DATA_RESULTS,
+        payload : false
+    })
     return response
 }
 

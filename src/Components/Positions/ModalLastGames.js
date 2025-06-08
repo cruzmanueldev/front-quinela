@@ -1,8 +1,13 @@
+import { Row } from 'antd'
 import React from 'react'
-
+import ImageCard from '../../Assets/images/loadingBall.gif'
 const ModalLastGames = () => {
   return (
-    <div>ModalLastGames</div>
+    <div>
+      <Row>
+      </Row>
+      ModalLastGames
+    </div>
   )
 }
 
