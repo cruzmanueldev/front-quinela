@@ -15,7 +15,7 @@ const ModalLastResult = () => {
     loading_data_results
   } = useSelector(({ home }) => home)
 
-  const [currentJournery, setCurrentJournery] = useState(15)
+  const [currentJournery, setCurrentJournery] = useState(16)
 
   const dispatch = useDispatch()
 
@@ -44,7 +44,7 @@ const ModalLastResult = () => {
       <div style={{ fontWeight: 'bold' }}>Jornada: </div>
       <div style={{ display: 'flex', gap: '2px', flexWrap: 'wrap' }}>
         {
-          [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map(jou => (
+          [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16].map(jou => (
             <Button
               style={{
                 backgroundColor: jou == currentJournery ? '#0958d9' : '#FFFFFF',
